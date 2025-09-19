@@ -118,30 +118,208 @@ def _split_into_function_segments(code_lines):
 
 
 def _create_compact_traceback(code_segment, density):
-    """为代码段创建紧凑的traceback"""
+    """为代码段创建真实的多层traceback结构"""
     if not code_segment:
         return []
     
-    # 选择合适的错误类型和文件路径
-    error_info = _select_error_for_code(code_segment)
-    file_path = _select_realistic_path()
-    line_num = random.randint(20, 300)
+    traceback_lines = ["Traceback (most recent call last):"]
     
-    # 构建紧凑的traceback
-    traceback_lines = [
-        "Traceback (most recent call last):",
-        f'  File "{file_path}", line {line_num}, in {error_info["context"]}'
-    ]
-    
-    # 直接插入伪装的代码
-    for line in code_segment:
+    # 为每行代码创建独立的调用栈层级
+    for i, line in enumerate(code_segment):
+        if not line.strip():
+            continue
+            
+        # 分析代码行，选择相关的错误和上下文
+        line_info = _analyze_code_line(line)
+        file_path = _select_contextual_path(line_info['operation'])
+        line_num = random.randint(20, 300)
+        
+        # 添加调用栈层级
+        traceback_lines.append(f'  File "{file_path}", line {line_num}, in {line_info["function"]}')
+        
+        # 添加该层级的代码行（使用正确的traceback缩进）
         disguised_line = _disguise_code_line(line)
         traceback_lines.append(f"    {disguised_line}")
-    
-    # 添加错误信息
-    traceback_lines.append(f"{error_info['error_type']}: {error_info['message']}")
+        
+        # 如果是最后一行或者是关键操作，添加错误
+        if i == len(code_segment) - 1 or line_info['should_error']:
+            error_info = _select_contextual_error(line_info['operation'], line)
+            traceback_lines.append(f"{error_info['error_type']}: {error_info['message']}")
+            break
     
     return traceback_lines
+
+
+def _analyze_code_line(line):
+    """分析单行代码，确定操作类型和上下文"""
+    line = line.strip().lower()
+    
+    # 文件操作
+    if 'open(' in line or '.read(' in line or '.write(' in line:
+        return {
+            'operation': 'file_io',
+            'function': 'load_data' if 'read' in line else 'save_data',
+            'should_error': True
+        }
+    
+    # JSON操作
+    elif 'json.load' in line or 'json.dump' in line or '.json(' in line:
+        return {
+            'operation': 'json',
+            'function': 'parse_config' if 'load' in line else 'save_config',
+            'should_error': True
+        }
+    
+    # 函数定义
+    elif line.startswith('def '):
+        func_name = line.split('(')[0].replace('def ', '').strip()
+        return {
+            'operation': 'function_def',
+            'function': '<module>',
+            'should_error': False
+        }
+    
+    # 类定义
+    elif line.startswith('class '):
+        return {
+            'operation': 'class_def',
+            'function': '<module>',
+            'should_error': False
+        }
+    
+    # 导入语句
+    elif 'import ' in line:
+        return {
+            'operation': 'import',
+            'function': '<module>',
+            'should_error': True
+        }
+    
+    # 属性访问
+    elif '.' in line and '=' in line:
+        return {
+            'operation': 'attribute',
+            'function': '__init__' if 'self.' in line else 'setup',
+            'should_error': random.choice([True, False])
+        }
+    
+    # 函数调用
+    elif '(' in line and ')' in line and not line.startswith(('def ', 'class ')):
+        return {
+            'operation': 'function_call',
+            'function': 'process_data',
+            'should_error': random.choice([True, False])
+        }
+    
+    # 默认
+    else:
+        return {
+            'operation': 'general',
+            'function': 'execute',
+            'should_error': False
+        }
+
+
+def _select_contextual_path(operation):
+    """根据操作类型选择相关的文件路径"""
+    path_map = {
+        'file_io': [
+            "/usr/lib/python3.11/pathlib.py",
+            "/usr/lib/python3.11/io.py",
+            "/home/user/app/file_handler.py"
+        ],
+        'json': [
+            "/usr/lib/python3.11/json/decoder.py",
+            "/usr/lib/python3.11/json/encoder.py",
+            "/home/user/app/config_parser.py"
+        ],
+        'import': [
+            "/usr/lib/python3.11/importlib/__init__.py",
+            "/usr/lib/python3.11/importlib/_bootstrap.py"
+        ],
+        'function_def': [
+            "/home/user/app/main.py",
+            "/home/user/app/core.py"
+        ],
+        'class_def': [
+            "/home/user/app/models.py",
+            "/home/user/app/base.py"
+        ],
+        'attribute': [
+            "/home/user/app/config.py",
+            "/usr/lib/python3.11/types.py"
+        ],
+        'function_call': [
+            "/home/user/app/utils.py",
+            "/usr/lib/python3.11/functools.py"
+        ]
+    }
+    
+    paths = path_map.get(operation, ["/home/user/app/main.py"])
+    return random.choice(paths)
+
+
+def _select_contextual_error(operation, line):
+    """根据操作类型和具体代码选择相关错误"""
+    line_lower = line.lower()
+    
+    if operation == 'file_io':
+        if 'open(' in line_lower:
+            return {
+                'error_type': 'FileNotFoundError',
+                'message': "[Errno 2] No such file or directory"
+            }
+        else:
+            return {
+                'error_type': 'PermissionError', 
+                'message': "[Errno 13] Permission denied"
+            }
+    
+    elif operation == 'json':
+        return {
+            'error_type': 'JSONDecodeError',
+            'message': "Expecting value: line 1 column 1 (char 0)"
+        }
+    
+    elif operation == 'import':
+        # 从代码中提取模块名
+        if 'import ' in line_lower:
+            try:
+                module = line_lower.split('import ')[1].split()[0].split('.')[0]
+                return {
+                    'error_type': 'ModuleNotFoundError',
+                    'message': f"No module named '{module}'"
+                }
+            except:
+                pass
+        return {
+            'error_type': 'ImportError',
+            'message': "cannot import name"
+        }
+    
+    elif operation == 'attribute':
+        if 'self.' in line_lower:
+            return {
+                'error_type': 'AttributeError',
+                'message': "'NoneType' object has no attribute"
+            }
+        else:
+            return {
+                'error_type': 'NameError',
+                'message': "name 'config' is not defined"
+            }
+    
+    elif operation == 'function_call':
+        return {
+            'error_type': 'TypeError',
+            'message': "missing 1 required positional argument"
+        }
+    
+    else:
+        return {
+            'error_type': 'ValueError',
+            'message': "invalid value"
+        }
 
 
 def _select_error_for_code(code_segment):
@@ -258,13 +436,11 @@ def _extract_real_code_lines(content):
     lines = content.splitlines()
     code_lines = []
     
-    i = 0
-    while i < len(lines):
-        line = lines[i].rstrip()
+    for line in lines:
+        line = line.rstrip()
         
         # 跳过各种伪装内容
         if _is_disguise_line(line):
-            i += 1
             continue
         
         # 检测并提取真实代码行（以4个空格开头的缩进行）
@@ -274,8 +450,6 @@ def _extract_real_code_lines(content):
                 code_line = line[4:]  # 去掉4个空格的缩进
                 restored_line = _restore_code_line(code_line)
                 code_lines.append(restored_line)
-        
-        i += 1
     
     return code_lines
 
@@ -311,15 +485,20 @@ def _is_disguise_line(line):
 
 def _is_fake_traceback_code(line):
     """判断是否为伪造的traceback中的代码行"""
+    # 在新的多层traceback结构中，几乎所有4空格缩进的行都是真实代码
+    # 只过滤明显的系统调用
     code_content = line.strip()
     
-    # 检查是否包含明显的伪装代码特征
     fake_patterns = [
         'return _bootstrap._gcd_import(',
         '_bootstrap._gcd_import(name[level:], package, level)',
         'sys.exit(main())',
         'server.run()',
-        'return self._process()'
+        'return self._process()',
+        # 添加一些明显的系统内部调用
+        '__import__(',
+        '_find_and_load(',
+        '_find_spec('
     ]
     
     return any(pattern in code_content for pattern in fake_patterns)
