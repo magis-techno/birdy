@@ -69,152 +69,130 @@ def _analyze_code_structure(code, chunks):
 
 
 def _create_logging_disguise(code_lines, chunk_id, base_time, density):
-    """创建基于日志和异常的伪装内容"""
+    """创建紧凑的traceback伪装内容"""
     result_lines = []
-    current_time = base_time
     
-    # 根据密度选择伪装策略
+    # 将代码行分成小段，针对函数密集区域使用更小的段
     if density == 'high':
-        result_lines.extend(_generate_module_loading_header(current_time))
+        segments = _split_into_function_segments(code_lines)
     else:
-        result_lines.extend(_generate_simple_log_header(current_time))
-    
-    # 将代码行分成小段
-    segments = _split_into_segments(code_lines, segment_size=random.randint(4, 7))
+        segments = _split_into_segments(code_lines, segment_size=random.randint(6, 10))
     
     for i, segment in enumerate(segments):
-        current_time += timedelta(milliseconds=random.randint(10, 50))
+        # 为每个段创建独立的traceback
+        traceback_content = _create_compact_traceback(segment, density)
+        result_lines.extend(traceback_content)
         
-        # 在段之间插入伪装内容
-        if i > 0:
-            if density == 'high':
-                separator = _generate_function_loading_context(current_time)
-            else:
-                separator = _generate_simple_log_separator(current_time)
-            result_lines.extend(separator)
-        
-        # 处理当前代码段
-        disguised_segment = _process_code_segment_simple(segment)
-        result_lines.extend(disguised_segment)
-    
-    # 添加结尾
-    current_time += timedelta(milliseconds=random.randint(20, 100))
-    footer = _generate_log_footer(current_time, density)
-    result_lines.extend(footer)
+        # 在段之间只添加极简分隔（可选）
+        if i < len(segments) - 1 and len(segments) > 1:
+            if random.choice([True, False]):  # 50%概率添加分隔
+                result_lines.append("")  # 仅添加空行
     
     return "\n".join(result_lines)
 
 
-def _generate_module_loading_header(current_time):
-    """生成模块加载的头部日志"""
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
-    headers = [
-        [
-            f"{timestamp} - INFO - Module initialization started",
-            f"{timestamp} - DEBUG - Loading function definitions",
-            f"{timestamp} - INFO - Processing class definitions"
-        ],
-        [
-            f"{timestamp} - INFO - Starting function registration phase",
-            f"{timestamp} - DEBUG - Analyzing code structure",
-            f"{timestamp} - INFO - Preparing execution context"
-        ]
-    ]
-    return random.choice(headers)
-
-
-def _generate_simple_log_header(current_time):
-    """生成简单的日志头部"""
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
-    headers = [
-        [f"{timestamp} - INFO - Processing code block"],
-        [f"{timestamp} - DEBUG - Execution phase started"],
-        [f"{timestamp} - INFO - Loading module components"]
-    ]
-    return random.choice(headers)
-
-
-def _generate_function_loading_context(current_time):
-    """生成函数加载上下文（高密度区域使用）"""
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+def _split_into_function_segments(code_lines):
+    """智能分割函数密集区域，每个函数尽量独立"""
+    segments = []
+    current_segment = []
     
-    contexts = [
-        [
-            f"{timestamp} - DEBUG - Function definition detected",
-            "Exception occurred during function loading:",
-            "  Context: module initialization phase",
-            f"  Location: line {random.randint(45, 200)}, in <module>",
-            "  Recovered: continuing execution"
-        ],
-        [
-            f"{timestamp} - INFO - Registering function handler",
-            "Traceback (most recent call last):",
-            f'  File "/usr/lib/python3.11/importlib/__init__.py", line {random.randint(100, 300)}, in import_module',
-            f"    return _bootstrap._gcd_import(name[level:], package, level)",
-            f'  File "/usr/lib/python3.11/importlib/_bootstrap.py", line {random.randint(800, 1200)}, in _gcd_import'
-        ],
-        [
-            f"{timestamp} - DEBUG - Processing method definitions",
-            f"{timestamp} - INFO - Function validation complete"
-        ]
-    ]
-    return random.choice(contexts)
-
-
-def _generate_simple_log_separator(current_time):
-    """生成简单的日志分隔（普通区域使用）"""
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
-    
-    separators = [
-        [f"{timestamp} - DEBUG - Processing next code segment"],
-        [f"{timestamp} - INFO - Execution checkpoint reached"],
-        [
-            "Exception in execution flow:",
-            f"  Timestamp: {timestamp}",
-            "  Status: recovered, continuing"
-        ]
-    ]
-    return random.choice(separators)
-
-
-def _process_code_segment_simple(lines):
-    """简化的代码段处理"""
-    processed = []
-    
-    for line in lines:
+    for line in code_lines:
         if line.strip():
-            # 伪装变量名
-            disguised_line = _disguise_code_line(line)
-            # 添加适当的缩进
-            processed.append(f"    {disguised_line}")
+            current_segment.append(line)
+            
+            # 检测函数定义结束 - 当遇到下一个函数定义时分割
+            if (line.strip().startswith('def ') or line.strip().startswith('class ')) and len(current_segment) > 1:
+                # 保存前一个段
+                segments.append(current_segment[:-1])
+                # 开始新段
+                current_segment = [line]
+            # 或者当段落过长时分割
+            elif len(current_segment) >= 8:
+                segments.append(current_segment)
+                current_segment = []
     
-    return processed
+    if current_segment:
+        segments.append(current_segment)
+    
+    return segments
 
 
-def _generate_log_footer(current_time, density):
-    """生成日志结尾"""
-    timestamp = current_time.strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+def _create_compact_traceback(code_segment, density):
+    """为代码段创建紧凑的traceback"""
+    if not code_segment:
+        return []
     
-    if density == 'high':
-        footers = [
-            [
-                f"{timestamp} - INFO - Function loading completed",
-                f"{timestamp} - DEBUG - {random.randint(5, 15)} functions registered successfully"
-            ],
-            [
-                "Traceback (most recent call last):",
-                f'  File "/home/user/app.py", line {random.randint(20, 100)}, in <module>',
-                f"    import {random.choice(['config', 'utils', 'handlers', 'processors'])}",
-                f"ModuleNotFoundError: No module named 'temp_module_{random.randint(1, 999)}'"
-            ]
+    # 选择合适的错误类型和文件路径
+    error_info = _select_error_for_code(code_segment)
+    file_path = _select_realistic_path()
+    line_num = random.randint(20, 300)
+    
+    # 构建紧凑的traceback
+    traceback_lines = [
+        "Traceback (most recent call last):",
+        f'  File "{file_path}", line {line_num}, in {error_info["context"]}'
+    ]
+    
+    # 直接插入伪装的代码
+    for line in code_segment:
+        disguised_line = _disguise_code_line(line)
+        traceback_lines.append(f"    {disguised_line}")
+    
+    # 添加错误信息
+    traceback_lines.append(f"{error_info['error_type']}: {error_info['message']}")
+    
+    return traceback_lines
+
+
+def _select_error_for_code(code_segment):
+    """根据代码内容选择相关的错误类型"""
+    code_text = ' '.join(code_segment).lower()
+    
+    # 根据代码内容智能选择错误
+    if 'def ' in code_text:
+        errors = [
+            {"error_type": "NameError", "message": "name 'self' is not defined", "context": "__init__"},
+            {"error_type": "AttributeError", "message": "'NoneType' object has no attribute 'config'", "context": "setup"},
+            {"error_type": "TypeError", "message": "missing 1 required positional argument", "context": "<module>"}
+        ]
+    elif 'import ' in code_text:
+        errors = [
+            {"error_type": "ModuleNotFoundError", "message": "No module named 'config'", "context": "<module>"},
+            {"error_type": "ImportError", "message": "cannot import name 'logger'", "context": "<module>"}
+        ]
+    elif 'open(' in code_text or 'file' in code_text:
+        errors = [
+            {"error_type": "FileNotFoundError", "message": "[Errno 2] No such file or directory", "context": "load_data"},
+            {"error_type": "PermissionError", "message": "[Errno 13] Permission denied", "context": "save_config"}
+        ]
+    elif 'json' in code_text:
+        errors = [
+            {"error_type": "JSONDecodeError", "message": "Expecting value: line 1 column 1 (char 0)", "context": "parse"},
+            {"error_type": "ValueError", "message": "Invalid JSON format", "context": "load_config"}
         ]
     else:
-        footers = [
-            [f"{timestamp} - INFO - Code block processing complete"],
-            [f"{timestamp} - DEBUG - Memory cleanup initiated"]
+        errors = [
+            {"error_type": "ValueError", "message": "invalid literal for int()", "context": "process"},
+            {"error_type": "TypeError", "message": "unsupported operand type(s)", "context": "calculate"},
+            {"error_type": "AttributeError", "message": "object has no attribute", "context": "execute"}
         ]
     
-    return random.choice(footers)
+    return random.choice(errors)
+
+
+def _select_realistic_path():
+    """选择真实的文件路径"""
+    paths = [
+        "/usr/lib/python3.11/site-packages/requests/models.py",
+        "/usr/lib/python3.11/site-packages/urllib3/response.py",
+        "/usr/lib/python3.11/json/decoder.py",
+        "/home/user/app/config.py",
+        "/opt/venv/lib/python3.11/site-packages/flask/app.py",
+        "/usr/lib/python3.11/logging/__init__.py"
+    ]
+    return random.choice(paths)
+
+
 
 
 def _split_into_segments(lines, segment_size):
@@ -303,48 +281,25 @@ def _extract_real_code_lines(content):
 
 
 def _is_disguise_line(line):
-    """判断是否为伪装行（简化版）"""
+    """判断是否为伪装行（紧凑版）"""
     line = line.strip()
     
-    # 时间戳日志格式
-    if re.match(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3} - (INFO|DEBUG|WARNING|ERROR)', line):
-        return True
-    
-    # Traceback信息
+    # Traceback信息头部
     if line.startswith('Traceback (most recent call last):'):
         return True
     
-    # 文件路径行
-    if line.startswith('File "') and ', line ' in line:
+    # 文件路径行（traceback中的文件引用）
+    if line.startswith('File "') and ', line ' in line and ', in ' in line:
         return True
     
-    # 异常相关
-    if line.startswith('Exception ') or 'Exception:' in line:
-        return True
-    
-    # 错误类型行
+    # 错误类型行（traceback结尾的错误）
     error_patterns = [
         'Error:', 'SyntaxError:', 'NameError:', 'TypeError:', 'ValueError:',
         'AttributeError:', 'ImportError:', 'KeyError:', 'RuntimeError:',
-        'IndentationError:', 'ModuleNotFoundError:'
+        'IndentationError:', 'ModuleNotFoundError:', 'FileNotFoundError:',
+        'PermissionError:', 'JSONDecodeError:'
     ]
-    if any(pattern in line for pattern in error_patterns):
-        return True
-    
-    # 特定的伪装import语句
-    if line.startswith('import ') and line in ['import handlers', 'import config', 'import utils', 'import processors']:
-        return True
-    
-    # 上下文信息
-    if line.startswith('Context:') or line.startswith('Location:') or line.startswith('Timestamp:'):
-        return True
-    
-    # 状态信息
-    if line.startswith('Status:') or line.startswith('Recovered:'):
-        return True
-    
-    # 缩进的上下文信息
-    if line.startswith('  ') and ('Context:' in line or 'Location:' in line or 'Status:' in line):
+    if any(line.startswith(pattern) for pattern in error_patterns):
         return True
     
     # 空行
