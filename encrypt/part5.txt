@@ -1,0 +1,495 @@
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 217, in execute
+
+                                                    )  
+
+  File "/home/user/app/utils.py", line 267, in process_data
+
+                log_probs.append(log_pi)
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 241, in __init__
+
+            log_probs = torch.stack(log_probs, dim=1) if (return_logpi and not self.deterministic) else []
+
+  File "/home/user/app/config.py", line 202, in __init__
+
+            entropys = torch.stack(entropys, dim=1) if (return_logpi and not self.deterministic) else []
+
+  File "/home/user/app/config.py", line 57, in __init__
+
+            obj_log_probs = torch.stack(obj_log_probs, dim=1) if (return_logpi and not self.deterministic) else []
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 99, in setup
+
+            final_sde_results.sde_infos = sde_infos 
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 187, in <module>
+
+        def get_sde_denoise_init_traj(self, z0=None, obj_num=0, device=None): 
+
+  File "/home/user/app/main.py", line 26, in execute
+
+            """ 
+
+  File "/home/user/app/main.py", line 136, in execute
+
+            for sde sampler    
+
+  File "/home/user/app/main.py", line 295, in execute
+
+            z0: init_noise
+
+  File "/home/user/app/main.py", line 204, in execute
+
+            """ 
+
+  File "/home/user/app/main.py", line 135, in execute
+
+            # tps = None  # debug 
+
+  File "/usr/lib/python3.11/types.py", line 155, in setup
+
+            A, G, K = z0.shape  
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 251, in execute
+
+            x_t = z0 
+
+  File "/usr/lib/python3.11/types.py", line 165, in setup
+
+            x_t = x_t.reshape(A*G, -1) 
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/core.py", line 286, in <module>
+
+        def get_init_state_z0(self, bs, mode, obj_num):
+
+  File "/home/user/app/main.py", line 99, in execute
+
+            if mode == "random":
+
+  File "/home/user/app/config.py", line 274, in __init__
+
+                return torch.randn((bs, self.groups, 2 * (self.traj_len+self.len_10m_path + obj_num * self.traj_len)), device=self.device)
+
+  File "/home/user/app/main.py", line 286, in execute
+
+            elif mode == "zero":
+
+  File "/usr/lib/python3.11/types.py", line 235, in __init__
+
+                return torch.zeros((bs, self.groups, 2 * (self.traj_len+self.len_10m_path + obj_num * self.traj_len)), device=self.device) 
+
+  File "/home/user/app/main.py", line 260, in execute
+
+            else:
+
+  File "/home/user/app/utils.py", line 31, in process_data
+
+                raise NotImplementedError("Unsupported init z0 mode ... ...")
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/home/user/app/core.py", line 103, in <module>
+
+        def _conditions_cache_improve_preprocess(self, conditions, groups=1):
+
+  File "/home/user/app/utils.py", line 184, in process_data
+
+            if not isinstance(conditions, (list, tuple)):
+
+  File "/home/user/app/utils.py", line 190, in process_data
+
+                raise TypeError("Error: 'conditions' must be a List!")
+
+  File "/home/user/app/main.py", line 46, in execute
+
+            # kv preprocess for cache & inference time-saving
+
+  File "/home/user/app/main.py", line 106, in execute
+
+            tokens, ego_condition, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm = conditions 
+
+  File "/home/user/app/main.py", line 140, in execute
+
+            if groups > 1:
+
+  File "/home/user/app/main.py", line 51, in execute
+
+                # rebatch conditions -> rep group times
+
+  File "/home/user/app/main.py", line 198, in execute
+
+                conditions = [tokens, ego_condition, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm]
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 260, in execute
+
+                tokens, ego_condition, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm = \
+
+  File "/usr/lib/python3.11/functools.py", line 33, in process_data
+
+                                                                self.batch_process_multiple_tensors(conditions, groups)
+
+  File "/home/user/app/main.py", line 43, in execute
+
+            update_conditions = [tokens, ego_condition, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm]
+
+  File "/home/user/app/main.py", line 67, in execute
+
+            return update_conditions
+
+ValueError: invalid value
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/core.py", line 104, in <module>
+
+        def _init_params(self):
+
+  File "/usr/lib/python3.11/functools.py", line 47, in process_data
+
+            pretrain_head_dict = OrderedDict()
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 282, in execute
+
+            print("====== load the state dict from the pre-trained head =======islearn=", 
+
+  File "/home/user/app/main.py", line 70, in execute
+
+            self.rule,'pretrained_param',
+
+  File "/home/user/app/utils.py", line 187, in process_data
+
+            pretrained_param['diffusion_policy_head.diffusion_decoder.time_embed.mlp.0.bias'].cpu().numpy()[:2],
+
+  File "/usr/lib/python3.11/functools.py", line 216, in process_data
+
+            "head_p", self.state_dict()['diffusion_decoder.time_embed.mlp.0.bias'].cpu().numpy()[:2]) 
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 194, in <module>
+
+        def _update_policy_old_params(self):
+
+  File "/home/user/app/config.py", line 266, in __init__
+
+            if (self.count+1) % self.target_update_period == 0 and self.rule == "trained":  # policy_new先upload
+
+  File "/home/user/app/config.py", line 32, in __init__
+
+                self._update_params(role="trained") 
+
+  File "/home/user/app/config.py", line 143, in __init__
+
+            if self.count > 0 and self.count % self.target_update_period == 0 and self.rule == "policy_old":
+
+  File "/home/user/app/config.py", line 67, in __init__
+
+                    # if self.policy_old_cnt % (self.target_update_period) == 0:
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 253, in <module>
+
+        def _update_params(self, role):
+
+  File "/home/user/app/main.py", line 185, in execute
+
+            # 参数更新  
+
+  File "/home/user/app/main.py", line 237, in execute
+
+            if role =='trained':   #evaluate network  
+
+  File "/home/user/app/main.py", line 30, in execute
+
+                # trained上传参数 
+
+  File "/home/user/app/config.py", line 142, in __init__
+
+                DiffusionPolicyDense_RL.trained_head_state_dict = self.state_dict().copy()
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 112, in execute
+
+                #soft update 
+
+  File "/usr/lib/python3.11/types.py", line 263, in __init__
+
+                if self.mode == "hard":
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 134, in <module>
+
+        def get_sde_gaussian_logpdf(self,
+
+  File "/home/user/app/main.py", line 99, in execute
+
+                                    samples: torch.Tensor,
+
+  File "/home/user/app/main.py", line 299, in execute
+
+                                    means: torch.Tensor, 
+
+  File "/home/user/app/main.py", line 229, in execute
+
+                                    noise_std: torch.Tensor, 
+
+  File "/usr/lib/python3.11/types.py", line 192, in setup
+
+                                    dt: float = 0.1, 
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 26, in execute
+
+            """ 
+
+  File "/home/user/app/main.py", line 185, in execute
+
+            gaussian log pdf 
+
+  File "/home/user/app/main.py", line 100, in execute
+
+            """  
+
+  File "/usr/lib/python3.11/types.py", line 23, in __init__
+
+            std = noise_std * torch.sqrt(dt) if self.sde_solver_type == "Euler" else (noise_std)
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 116, in setup
+
+                term3 = - torch.log(torch.sqrt(2 * torch.as_tensor(math.pi))+ eps)
+
+  File "/usr/lib/python3.11/types.py", line 236, in setup
+
+                log_prob_elem = term1 + term2 + term3  # shape [B, ...]
+
+  File "/home/user/app/config.py", line 292, in setup
+
+                dims = list(range(1, log_prob_elem.ndim))
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 292, in process_data
+
+                dist = Normal(means, std) 
+
+  File "/home/user/app/config.py", line 171, in setup
+
+                log_prob = dist.log_prob(samples+eps).mean(dim=-1)
+
+  File "/home/user/app/main.py", line 44, in execute
+
+                entropy = -log_prob
+
+  File "/home/user/app/main.py", line 237, in execute
+
+            return log_prob, entropy
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 41, in <module>
+
+        def batch_process_multiple_tensors(self, tensor_list, repeat_times):
+
+  File "/home/user/app/main.py", line 50, in execute
+
+            """
+
+  File "/home/user/app/main.py", line 78, in execute
+
+            扩展batch任意list
+
+  File "/home/user/app/main.py", line 240, in execute
+
+            """
+
+  File "/usr/lib/python3.11/functools.py", line 196, in process_data
+
+            if type(tensor_list) is list:
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 122, in <module>
+
+        def _repeat_batch(x, repeat_times):
+
+  File "/home/user/app/main.py", line 230, in execute
+
+            """
+
+  File "/home/user/app/main.py", line 63, in execute
+
+            conditions rebatch
+
+  File "/home/user/app/main.py", line 280, in execute
+
+            """
+
+  File "/home/user/app/config.py", line 62, in setup
+
+            B, *rest = x.shape            
+
+  File "/home/user/app/config.py", line 157, in setup
+
+            x = x.unsqueeze(1)         # shape: (B, 1, *rest)
+
+  File "/usr/lib/python3.11/functools.py", line 176, in process_data
+
+            reps = [1, repeat_times] + [1] * len(rest)
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/functools.py", line 35, in process_data
+
+            return x.view(B * repeat_times, *rest)
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 208, in <module>
+
+        def _viz_tool_for_sde_sampler(self, labels, ego_condition, group_trajs_each_step, ego_gt_with_groups, sigma_maxs=None):
+
+  File "/home/user/app/main.py", line 171, in execute
+
+            """ 
+
+  File "/home/user/app/main.py", line 224, in execute
+
+            Denoise 可视化工具
+
+  File "/home/user/app/main.py", line 157, in execute
+
+            - 横轴 --- Groups数（模态数）
+
+  File "/home/user/app/main.py", line 28, in execute
+
+            - 纵轴 --- Denoise步数 
+
+  File "/home/user/app/main.py", line 152, in execute
+
+            """
+
+  File "/home/user/app/main.py", line 99, in execute
+
+            # debug，可视化Groups条轨迹的Denoise过程
+
+  File "/usr/lib/python3.11/importlib/_bootstrap.py", line 255, in <module>
+
+            import matplotlib.pyplot as plt
+
+ModuleNotFoundError: No module named 'matplotlib'
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 164, in setup
+
+            _, Tps, _ = group_trajs_each_step.size()
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 150, in setup
+
+                gt = gt.detach().cpu().numpy() 
+
+  File "/usr/lib/python3.11/types.py", line 203, in setup
+
+                fig, axes = plt.subplots(nrows=T, ncols=groups, figsize=(4*groups, 4*T))  
+
+  File "/home/user/app/main.py", line 285, in execute
+
+                # tmax 
+
+  File "/home/user/app/config.py", line 99, in setup
+
+                t_max = sigma_maxs.view(b, groups, -1)[select_BS]
+
+  File "/home/user/app/config.py", line 204, in setup
+
+                t_max = t_max.detach().cpu().numpy()
+
+NameError: name 'config' is not defined

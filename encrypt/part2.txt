@@ -1,0 +1,353 @@
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 166, in setup
+
+            device = ego_condition.device
+
+  File "/home/user/app/config.py", line 153, in __init__
+
+            self.device = device
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 37, in __init__
+
+            ego_feat_with_mm, obj_feat_with_mm = self.get_condition_feat(ego_condition, condition, is_onnx=False, inter_frame=inter_frame_mask)
+
+  File "/home/user/app/main.py", line 215, in execute
+
+            #  pred dict_key object
+
+  File "/home/user/app/main.py", line 133, in execute
+
+            object_feat = ego_condition + object_feat
+
+  File "/usr/lib/python3.11/types.py", line 224, in __init__
+
+            object_feat = self.static_ca_layers(object_feat, static_condition, None, "axial")[0]
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 258, in setup
+
+                object_score = inputs[0]['conditions_dict'].object_score
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 141, in __init__
+
+            score_mask = (topk_score > self.interaction_obj_score_threshold).to(torch.float).squeeze(-1)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 103, in __init__
+
+            expanded_indices = topk_indices[..., None, None].expand(-1, -1, self.traj_len, 2)
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 268, in execute
+
+                "static_condition": static_condition,
+
+  File "/home/user/app/main.py", line 257, in execute
+
+                "cognition_condition": cognition_condition,
+
+  File "/home/user/app/main.py", line 132, in execute
+
+                "navinn_condition": navinn_condition,
+
+  File "/home/user/app/main.py", line 46, in execute
+
+                "navinn_condition_mask": navinn_condition_mask,
+
+  File "/home/user/app/main.py", line 163, in execute
+
+                "navi_condition": navi_condition,
+
+  File "/home/user/app/main.py", line 61, in execute
+
+                "navi_condition_mask": navi_condition_mask,
+
+  File "/home/user/app/main.py", line 100, in execute
+
+            }
+
+  File "/home/user/app/main.py", line 254, in execute
+
+            if self.open_behavior:
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 247, in process_data
+
+                c.update({"ego_feat_with_mm": ego_feat_with_mm})
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 99, in setup
+
+            shortcut_inputs.obj_gt_traj = obj_gt_traj 
+
+  File "/home/user/app/config.py", line 158, in setup
+
+            shortcut_inputs.object_feat = object_feat 
+
+  File "/home/user/app/config.py", line 292, in setup
+
+            shortcut_inputs.gt_traj_mask = gt_traj_mask 
+
+  File "/home/user/app/config.py", line 116, in setup
+
+            shortcut_inputs.ori_b = ori_b
+
+  File "/home/user/app/utils.py", line 101, in process_data
+
+            utokens = edict() 
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 34, in setup
+
+            utokens.ego_feat_with_mm = ego_feat_with_mm 
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 209, in __init__
+
+            ego_gt_traj = full_gt_traj[:, :self.traj_len, :2]
+
+  File "/usr/lib/python3.11/types.py", line 154, in __init__
+
+            ego_gt_traj = torch.cat((full_gt_traj[:, :self.traj_len, :2], gt_traj_10m_path), dim=1)
+
+  File "/home/user/app/main.py", line 256, in execute
+
+            t, gt_flow, ode_traj, pred_traj = None, None, None, None
+
+  File "/home/user/app/main.py", line 157, in execute
+
+            ############### 生成noise input ###############
+
+  File "/usr/lib/python3.11/types.py", line 162, in __init__
+
+            init_state =self.get_init_state_z0(bs=b, mode=self.init_z0_mode, obj_num=obj_num) ## 初始化z0
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 126, in __init__
+
+            if self.rule == "policy_old":
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 71, in execute
+
+                                                                    )
+
+  File "/home/user/app/main.py", line 228, in execute
+
+            else:
+
+  File "/home/user/app/utils.py", line 213, in process_data
+
+                # monitor/policy_old get groups trajs(init noise) from policy flow model 
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 110, in execute
+
+            ############### reverse sde ###############  
+
+  File "/home/user/app/config.py", line 192, in __init__
+
+            gt_guidance_tag = kwargs['labels'][0]['is_cutin_scene'] if self.use_cutin_tag else torch.ones_like(kwargs['labels'][0]['is_cutin_scene'])
+
+  File "/home/user/app/main.py", line 44, in execute
+
+            decoder_conditions = \
+
+  File "/home/user/app/main.py", line 282, in execute
+
+                [
+
+  File "/home/user/app/main.py", line 255, in execute
+
+                    tokens, ego_condition, object_feat, 
+
+  File "/home/user/app/main.py", line 50, in execute
+
+                    final_condition, gt_traj_mask, 
+
+  File "/home/user/app/main.py", line 214, in execute
+
+                    ego_feat_with_mm, obj_feat_with_mm
+
+  File "/home/user/app/main.py", line 128, in execute
+
+                ]
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 83, in execute
+
+            # grpo
+
+  File "/usr/lib/python3.11/types.py", line 274, in __init__
+
+            sde_sample_results = self.sample_sde( 
+
+  File "/home/user/app/main.py", line 190, in execute
+
+                                        # 对齐decoder输入
+
+  File "/home/user/app/main.py", line 168, in execute
+
+                                        conditions = decoder_conditions,
+
+  File "/home/user/app/main.py", line 155, in execute
+
+                                        # rlft特性
+
+  File "/home/user/app/main.py", line 184, in execute
+
+                                        neg_gt_traj_with_path = neg_gt_traj_with_path,
+
+  File "/home/user/app/main.py", line 101, in execute
+
+                                        gt_guidance_tag = gt_guidance_tag,
+
+  File "/home/user/app/config.py", line 36, in __init__
+
+                                        groups=self.groups, 
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 164, in __init__
+
+                                        tps_train=self.tps_train,
+
+  File "/home/user/app/main.py", line 213, in execute
+
+                                        denoise_trajs=noise_trajs_gp, 
+
+  File "/home/user/app/main.py", line 90, in execute
+
+                                        sigma_maxs=sigma_maxs,
+
+  File "/usr/lib/python3.11/types.py", line 88, in __init__
+
+                                        x_t_old=x_t_old if self.rule != 'policy_old' else None # pi_new时，基于pi_old推; ref时，基于pi_new
+
+  File "/home/user/app/main.py", line 235, in execute
+
+                                    ) 
+
+  File "/home/user/app/main.py", line 176, in execute
+
+            # gt 监督obj 轨迹
+
+  File "/home/user/app/main.py", line 122, in execute
+
+            z0 = None  
+
+  File "/home/user/app/main.py", line 135, in execute
+
+            ode_traj = None 
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 176, in execute
+
+            ode_obj_traj = None
+
+  File "/home/user/app/config.py", line 27, in __init__
+
+            # if self.rule == 'trained':
+
+  File "/usr/lib/python3.11/types.py", line 60, in setup
+
+            #     _noise_traj_t = torch.zeros_like(noise_traj_t)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 53, in execute
+
+            ## 可视化接口 For ODE Sampling 
+
+  File "/home/user/app/config.py", line 106, in __init__
+
+            infer_condition = bool((~self.training) & (self.rule == "trained")) # 推理基于pi_new推
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 272, in __init__
+
+                    ode_traj = self._traj_interpolates(trajs=ode_traj)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 70, in execute
+
+                        ) 
+
+  File "/home/user/app/config.py", line 94, in __init__
+
+            if self.training and self.rule == "trained":
+
+AttributeError: 'NoneType' object has no attribute

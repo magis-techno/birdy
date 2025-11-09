@@ -1,0 +1,401 @@
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 276, in process_data
+
+                for g in range(groups): 
+
+TypeError: missing 1 required positional argument
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 39, in process_data
+
+                            ax.set_title(f'G{g} T{t}-Tmax{sigma_t}')
+
+  File "/home/user/app/main.py", line 130, in execute
+
+                        else:
+
+  File "/usr/lib/python3.11/functools.py", line 239, in process_data
+
+                            ax.set_title(f'G{g} T{t}')
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/importlib/__init__.py", line 195, in <module>
+
+                import os 
+
+ModuleNotFoundError: No module named 'os'
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 59, in <module>
+
+        def s_sample(self, pred_traj_from_scratch, ego_gt_traj, sample_s_num=5):
+
+  File "/usr/lib/python3.11/types.py", line 217, in __init__
+
+            total_len = self.traj_len + self.len_10m_path
+
+  File "/home/user/app/config.py", line 60, in setup
+
+            device = pred_traj_from_scratch.device
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 64, in setup
+
+            pred_s = torch.cumsum(xy_dis, dim=-1)
+
+  File "/home/user/app/main.py", line 235, in execute
+
+            gt = ego_gt_traj
+
+  File "/home/user/app/config.py", line 289, in setup
+
+            gt = torch.concat((torch.zeros((b,1,2),device=device), gt), dim=1)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 294, in execute
+
+                if pred_s[i,-1] > gt_s[i,-1]:
+
+  File "/usr/lib/python3.11/types.py", line 37, in setup
+
+                    gt_s[i] = 0.9 * gt_s[i]
+
+  File "/usr/lib/python3.11/types.py", line 83, in setup
+
+                    pred_s_diff[i] = pred_s[i] * 1.1 - gt_s[i]
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 190, in process_data
+
+            for i in range(1, sample_s_num):
+
+  File "/home/user/app/utils.py", line 145, in process_data
+
+                sample_s[:, i] = gt_s + pred_s_diff / (sample_s_num - 1) * i
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 21, in execute
+
+            index_back = index_front + 1
+
+  File "/home/user/app/config.py", line 183, in setup
+
+            i = np.array(range(b)).reshape(-1,1)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 257, in setup
+
+            s_percent = torch.where(s_percent == np.inf, torch.tensor(0, dtype=torch.float32).to(dist_to_ref.device), s_percent)
+
+  File "/home/user/app/config.py", line 263, in setup
+
+            new_point = front_point + (back_point - front_point) * s_percent.unsqueeze(-1) # [n, a*t, d]
+
+  File "/usr/lib/python3.11/types.py", line 263, in setup
+
+            new_traj = new_point.reshape(b, sample_s_num, 25, 2)
+
+  File "/home/user/app/main.py", line 271, in execute
+
+            return new_traj
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 283, in <module>
+
+        def _update_sde_sample_results(self, sde_sample_results, sde_sample_results_from_memory):
+
+  File "/home/user/app/utils.py", line 272, in process_data
+
+            for dict_key in sde_sample_results_from_memory.keys():
+
+  File "/home/user/app/main.py", line 287, in execute
+
+                sde_sample_results[dict_key] = sde_sample_results_from_memory[dict_key]
+
+  File "/home/user/app/main.py", line 155, in execute
+
+            return sde_sample_results
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 148, in <module>
+
+        def get_train_tuple(self, z0=None, z1=None, device=None, t=None):
+
+  File "/home/user/app/config.py", line 101, in setup
+
+            a, k = z0.shape
+
+  File "/home/user/app/main.py", line 79, in execute
+
+            if t is None:
+
+  File "/usr/lib/python3.11/types.py", line 238, in setup
+
+                t = torch.rand((a, 1), device=device)
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 66, in <module>
+
+        def train_shortcut_pipe(self, shortcut_inputs: edict, utokens: edict):
+
+  File "/usr/lib/python3.11/functools.py", line 107, in process_data
+
+            shortcut_pipe_feats = edict()
+
+  File "/usr/lib/python3.11/types.py", line 130, in setup
+
+            init_noise = torch.randn_like(shortcut_inputs.ego_gt_traj)
+
+  File "/home/user/app/config.py", line 181, in setup
+
+            obj_init_noise = torch.randn_like(shortcut_inputs.obj_gt_traj)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 297, in setup
+
+                final_condition=utokens.final_condition,
+
+  File "/usr/lib/python3.11/types.py", line 124, in setup
+
+                object_feat=shortcut_inputs.object_feat,
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 89, in setup
+
+                ego_feat_with_mm=utokens.ego_feat_with_mm,
+
+  File "/usr/lib/python3.11/types.py", line 65, in setup
+
+                obj_feat_with_mm=utokens.obj_feat_with_mm
+
+  File "/home/user/app/main.py", line 170, in execute
+
+            )
+
+  File "/usr/lib/python3.11/types.py", line 65, in setup
+
+            ego_condition_st = utokens.ego_condition[shortcut_index].clone()
+
+  File "/home/user/app/config.py", line 37, in setup
+
+            tokens_st = utokens.tokens[shortcut_index].clone() 
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 205, in setup
+
+            ego_feat_with_mm_st = utokens.ego_feat_with_mm[shortcut_index].clone() if utokens.ego_feat_with_mm is not None else utokens.ego_feat_with_mm
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 20, in execute
+
+                object_flow=obj_noise_traj_t[bs_ori:],
+
+  File "/home/user/app/main.py", line 257, in execute
+
+                object_condition=object_feat_st,
+
+  File "/home/user/app/main.py", line 32, in execute
+
+                final_condition=final_condition_st,
+
+  File "/home/user/app/main.py", line 132, in execute
+
+                all_traj_flow_mask=gt_traj_mask_st,
+
+  File "/home/user/app/main.py", line 105, in execute
+
+                ego_feat_with_mm=ego_feat_with_mm_st,
+
+  File "/home/user/app/main.py", line 130, in execute
+
+                obj_feat_with_mm=obj_feat_with_mm_st
+
+  File "/home/user/app/main.py", line 218, in execute
+
+            )
+
+  File "/home/user/app/config.py", line 282, in __init__
+
+            _, gt_flow_shortcut = torch.split(gt_flow, (bs_ori, self.shortcut_bs), dim=0)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 92, in __init__
+
+            _, obj_gt_flow_shortcut = torch.split(obj_gt_flow, (bs_ori, self.shortcut_bs), dim=0)
+
+  File "/home/user/app/config.py", line 82, in setup
+
+            shortcut_pipe_feats.ego_condition_st = ego_condition_st 
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 134, in __init__
+
+            shortcut_pipe_feats.predict_flow_shortcut = predict_flow_st[:, :self.traj_len] 
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/core.py", line 156, in <module>
+
+        def sample_ode_ori(self, conditions, noise_traj_t, obj_noise_traj_t):
+
+  File "/home/user/app/main.py", line 31, in execute
+
+            tokens, ego_condition, obj_noise_traj_t, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm = conditions
+
+  File "/home/user/app/config.py", line 198, in setup
+
+            b = ego_condition.shape[0]
+
+  File "/usr/lib/python3.11/types.py", line 55, in __init__
+
+            dt = torch.ones((b, 1), device=ego_condition.device)/self.tps_train
+
+  File "/home/user/app/config.py", line 45, in __init__
+
+            n = self.tps_train
+
+AttributeError: 'NoneType' object has no attribute
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 273, in setup
+
+                t = torch.ones((b, 1), device=ego_condition.device) * i/n
+
+  File "/usr/lib/python3.11/types.py", line 158, in __init__
+
+                predict_flow, predict_obj_flow = self.diffusion_decoder(
+
+  File "/home/user/app/main.py", line 82, in execute
+
+                    time=t,
+
+  File "/home/user/app/main.py", line 225, in execute
+
+                    dt=dt,
+
+  File "/home/user/app/main.py", line 227, in execute
+
+                    tokens=tokens,
+
+  File "/home/user/app/main.py", line 133, in execute
+
+                    flow=z,
+
+  File "/home/user/app/main.py", line 223, in execute
+
+                    ego_condition=ego_condition,
+
+  File "/home/user/app/main.py", line 169, in execute
+
+                    object_flow=z_obj,
+
+ValueError: invalid value
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 182, in execute
+
+                    object_condition=object_feat,
+
+  File "/home/user/app/main.py", line 134, in execute
+
+                    final_condition=final_condition,
+
+  File "/home/user/app/main.py", line 85, in execute
+
+                    all_traj_flow_mask=gt_traj_mask,
+
+  File "/home/user/app/main.py", line 72, in execute
+
+                    ego_feat_with_mm=ego_feat_with_mm,
+
+  File "/home/user/app/main.py", line 70, in execute
+
+                    obj_feat_with_mm=obj_feat_with_mm
+
+  File "/home/user/app/main.py", line 127, in execute
+
+                )
+
+  File "/home/user/app/config.py", line 215, in setup
+
+                z = z + predict_flow * dt.unsqueeze(-1)
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 152, in execute
+
+            return z, z_obj
+
+ValueError: invalid value

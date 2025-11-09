@@ -1,0 +1,367 @@
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/importlib/_bootstrap.py", line 293, in <module>
+
+  import torch
+
+ModuleNotFoundError: No module named 'torch'
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/importlib/_bootstrap.py", line 24, in <module>
+
+  from features.fm_rlft.modules.toolkits.replay_memory import ReplayMemoryv2
+
+ModuleNotFoundError: No module named 'replaymemoryv2'
+
+Traceback (most recent call last):
+
+ File "/home/user/app/base.py", line 134, in <module>
+
+  class DiffusionPolicyDense_RL(DiffusionPolicyDense):
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 153, in <module>
+
+    def __init__(self, cfg):
+
+ File "/home/user/app/utils.py", line 53, in process_data
+
+      super().__init__(cfg)
+
+ File "/home/user/app/main.py", line 76, in execute
+
+      ####### rlft参数 #######
+
+ File "/home/user/app/config.py", line 121, in __init__
+
+      self.rlft = cfg.get("rlft", True)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 122, in __init__
+
+      self.pre_trained_model_dir = cfg.get("pre_trained_model_dir","obs://yw-ads-training-gy1/response_data/external/personal/x00665867/fv18.2_altC/Iter-150000_StepShot.pth")
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 247, in __init__
+
+      self.gaussian = cfg.get('gaussian', False)
+
+ File "/home/user/app/main.py", line 275, in execute
+
+      ###### GRPO Params #######
+
+ File "/usr/lib/python3.11/types.py", line 28, in __init__
+
+      self.sde_solver = cfg.get('sde_solver', True) # sde solver开关
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 159, in __init__
+
+      self.sigma_max = cfg.get('sigma_max', 0.99)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 192, in __init__
+
+      self.white_box_sample = cfg.get('white_box_sample', False)
+
+ File "/usr/lib/python3.11/types.py", line 191, in __init__
+
+      DiffusionPolicyDense_RL.train_phase = True if self.grpo_train_phase else False
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 237, in __init__
+
+      self.use_replay_memory = cfg.get("use_replayMemory", False)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 141, in __init__
+
+                    mem_in_mode=self.mem_in_mode
+
+ File "/home/user/app/main.py", line 51, in execute
+
+                )
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+ File "/home/user/app/core.py", line 85, in <module>
+
+    def forward(self, *inputs, **kwargs):
+
+ File "/home/user/app/utils.py", line 91, in process_data
+
+      # self.load_rl_model(inputs)
+
+ File "/home/user/app/main.py", line 249, in execute
+
+      """
+
+ File "/home/user/app/main.py", line 236, in execute
+
+      适用于RLFT阶段的Forward
+
+ File "/home/user/app/main.py", line 79, in execute
+
+      output:
+
+ File "/home/user/app/main.py", line 215, in execute
+
+      ode output: predict_flow, gt_flow, pred_traj, init_noise, t
+
+ File "/usr/lib/python3.11/functools.py", line 96, in process_data
+
+      sde output: (noise_trajs_gp, sigma_maxs, sde_infos, ego_gt_with_groups), (group_trajs, group_trajs_each_step, sde_predict_flow, group_flows_each_step), log_pi
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 166, in execute
+
+      # 模型参数初始化
+
+ File "/home/user/app/config.py", line 82, in __init__
+
+      if DiffusionPolicyDense_RL.train_phase and self.init_count==0:
+
+ File "/home/user/app/utils.py", line 291, in process_data
+
+        self._init_params()
+
+ File "/home/user/app/config.py", line 127, in __init__
+
+      if not self.grpo_train_phase and (self.rule == 'monitor' or self.rule == 'policy_old'):
+
+ File "/home/user/app/main.py", line 126, in execute
+
+        # 'monitor', 'policy_old'纯推理模式不过
+
+ File "/home/user/app/main.py", line 229, in execute
+
+        return None
+
+ File "/home/user/app/main.py", line 125, in execute
+
+      ## params update for policy old
+
+ File "/home/user/app/config.py", line 79, in __init__
+
+      if DiffusionPolicyDense_RL.train_phase and (self.rule == "policy_old" or self.rule == "trained"):
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/functools.py", line 286, in process_data
+
+        self._update_policy_old_params()
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 92, in execute
+
+          object_feat,
+
+ File "/home/user/app/main.py", line 127, in execute
+
+          object_mask,
+
+ File "/home/user/app/main.py", line 105, in execute
+
+          navi_condition,
+
+ File "/home/user/app/main.py", line 152, in execute
+
+          navi_condition_mask,
+
+ File "/home/user/app/main.py", line 86, in execute
+
+          navinn_condition,
+
+ File "/home/user/app/main.py", line 31, in execute
+
+          navinn_condition_mask,
+
+ File "/home/user/app/main.py", line 244, in execute
+
+          train_input
+
+ File "/home/user/app/main.py", line 147, in execute
+
+        ) = inputs[:12]
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 269, in setup
+
+        b = ego_condition.shape[0]
+
+ File "/home/user/app/main.py", line 158, in execute
+
+        # 原地操作的clone进buffer用于_new
+
+ File "/home/user/app/config.py", line 88, in setup
+
+        obj_white_exclude_ego = object_feat.clone()
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 177, in setup
+
+        static_condition_ori = static_condition.clone()
+
+ File "/usr/lib/python3.11/types.py", line 123, in setup
+
+        cognition_condition_ori = cognition_condition.clone()
+
+ File "/home/user/app/config.py", line 242, in setup
+
+        navinn_condition_ori = navinn_condition.clone()
+
+ File "/home/user/app/config.py", line 159, in setup
+
+        navinn_condition_mask_ori = navinn_condition_mask.clone()
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 180, in execute
+
+        multi_joint_key_obj_index = train_input['multi_joint_key_obj_index']
+
+ File "/home/user/app/main.py", line 66, in execute
+
+        multi_joint_key_obj_mask = train_input['multi_joint_key_obj_mask']
+
+ File "/home/user/app/main.py", line 33, in execute
+
+        modality_mask = train_input['modality_mask']
+
+ File "/home/user/app/main.py", line 194, in execute
+
+        lateral_goal = train_input['lateral_goal']
+
+ File "/home/user/app/main.py", line 270, in execute
+
+        inter_frame = train_input['inter_frame']
+
+ File "/home/user/app/config.py", line 141, in setup
+
+        inter_frame_mask = torch.rand(b, dtype=ego_condition.dtype, device=ego_condition.device)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 154, in execute
+
+        neg_gt_traj_with_path = kwargs['labels'][0]["neg_gt_traj_with_path"]
+
+ File "/home/user/app/main.py", line 166, in execute
+
+        gt_traj_10m_path = kwargs['labels'][0]["path_10m"]
+
+ File "/usr/lib/python3.11/types.py", line 75, in __init__
+
+        ego_gt_traj_mask = kwargs["labels"][0]["gt_traj_mask"][:, :1, : self.traj_len]
+
+ File "/home/user/app/main.py", line 187, in execute
+
+        obj_gt_traj_mask = kwargs["labels"][0]["gt_traj_mask"][
+
+ File "/home/user/app/main.py", line 66, in execute
+
+          :, 1:, : self.traj_len
+
+ File "/home/user/app/main.py", line 191, in execute
+
+        ]
+
+ File "/usr/lib/python3.11/types.py", line 257, in __init__
+
+        obj_full_gt_traj = kwargs["labels"][0]["full_gt_traj"][:, 1:, :self.traj_len, :2]
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 194, in execute
+
+      else:
+
+ File "/usr/lib/python3.11/types.py", line 200, in setup
+
+        ego_condition = inputs[0]['conditions_dict'].ego_condition # (b*memory_capacity, ... )
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 225, in setup
+
+        obj_white_exclude_ego = inputs[0]['conditions_dict'].obj_white_exclude_ego
+
+ File "/usr/lib/python3.11/types.py", line 204, in setup
+
+        object_mask = inputs[0]['conditions_dict'].object_mask
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 182, in setup
+
+        multi_joint_key_obj_mask = inputs[0]['conditions_dict'].multi_joint_key_obj_mask
+
+ File "/home/user/app/config.py", line 126, in setup
+
+        modality_mask = inputs[0]['conditions_dict'].modality_mask
+
+ File "/home/user/app/config.py", line 298, in setup
+
+        lateral_goal = inputs[0]['conditions_dict'].lateral_goal
+
+ File "/home/user/app/config.py", line 184, in setup
+
+        inter_frame = inputs[0]['conditions_dict'].inter_frame
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 98, in setup
+
+        gt_traj_10m_path = inputs[0]['labels_dict'].gt_traj_10m_path
+
+NameError: name 'config' is not defined

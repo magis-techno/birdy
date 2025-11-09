@@ -1,0 +1,375 @@
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 275, in __init__
+
+            shortcut_outputs = shortcut_outputs if self.rule == "trained" and self.shortcut_bs > 0 else None
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 183, in execute
+
+            object_score = object_score,
+
+ File "/home/user/app/main.py", line 85, in execute
+
+            gt_flow=gt_flow,
+
+ File "/home/user/app/main.py", line 37, in execute
+
+            pred_traj=pred_traj,
+
+ File "/home/user/app/main.py", line 114, in execute
+
+            init_noise=init_state,
+
+ File "/usr/lib/python3.11/types.py", line 32, in setup
+
+            sigmas=sde_sample_results.sde_infos.sigmas,
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 207, in setup
+
+            std=sde_sample_results.sde_infos.std_dev_t,
+
+ File "/home/user/app/main.py", line 203, in execute
+
+            ego_gt_with_groups=ego_gt_with_groups,
+
+ File "/home/user/app/config.py", line 276, in setup
+
+            x_t_records=sde_sample_results.x_t_records,
+
+ File "/home/user/app/config.py", line 139, in __init__
+
+            sample_traj=sde_sample_results.denoise_trajs_each_step[..., -1, :2*(self.traj_len+self.len_10m_path)],
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 231, in setup
+
+            log_pi=sde_sample_results.log_probs,
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 154, in <module>
+
+    def _update_train_iter(self):
+
+ File "/home/user/app/config.py", line 287, in __init__
+
+      self.train_iter += 1
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/core.py", line 126, in <module>
+
+    def _reset_train_iter(self):
+
+ File "/home/user/app/config.py", line 72, in __init__
+
+      self.train_iter = 0
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/core.py", line 290, in <module>
+
+    def get_train_iter(self):
+
+ File "/home/user/app/main.py", line 228, in execute
+
+      return self.train_iter
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 113, in <module>
+
+    def _traj_interpolates(self, trajs):
+
+ File "/home/user/app/main.py", line 175, in execute
+
+      topk = 1
+
+ File "/usr/lib/python3.11/types.py", line 28, in setup
+
+      b = trajs.shape[0]
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 83, in setup
+
+      traj_new = torch.zeros((b, 50, 2), dtype=torch.float32, device=trajs.device) # [1, 50 , 2]
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/core.py", line 59, in <module>
+
+    def sample_sde(self, conditions, neg_gt_traj_with_path, gt_guidance_tag=None, groups=5, tps_train=None, denoise_trajs=None, return_logpi=True, sigma_maxs=None, x_t_old = None):
+
+ File "/home/user/app/utils.py", line 61, in process_data
+
+      final_sde_results = edict()
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 196, in execute
+
+                                      conditions=conditions,
+
+ File "/home/user/app/main.py", line 286, in execute
+
+                                      groups=groups
+
+ File "/home/user/app/main.py", line 293, in execute
+
+                                    )
+
+ File "/home/user/app/main.py", line 220, in execute
+
+      tokens,ego_condition, object_feat, final_condition, gt_traj_mask, ego_feat_with_mm, obj_feat_with_mm = update_conditions
+
+ File "/home/user/app/main.py", line 68, in execute
+
+      if tps_train is None:
+
+ File "/usr/lib/python3.11/types.py", line 244, in __init__
+
+        tps_train = self.denoising_num # t
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 108, in execute
+
+      x_t_records = [x_t]
+
+ File "/home/user/app/main.py", line 66, in execute
+
+      log_probs = []
+
+ File "/home/user/app/main.py", line 200, in execute
+
+      obj_log_probs = []
+
+ File "/home/user/app/config.py", line 176, in __init__
+
+      ego_traj_len = 2*(self.traj_len + self.len_10m_path)
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 96, in execute
+
+      denoise_trajs_each_step = []
+
+ File "/home/user/app/main.py", line 281, in execute
+
+      pred_mu_flow_each_step = []
+
+ File "/home/user/app/main.py", line 191, in execute
+
+      pred_obj_flow_each_step = []
+
+ File "/home/user/app/main.py", line 287, in execute
+
+      # select sde_solver
+
+ File "/usr/lib/python3.11/types.py", line 54, in __init__
+
+      if self.sde_solver_type == "Euler": # flow_grpo sde_solver
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 222, in __init__
+
+          drift_enable=self.drift_enable,
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 180, in setup
+
+                  shift=1.0, # default
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/utils.py", line 282, in process_data
+
+        raise NotImplementedError('Undefined SDE Solver !!!')
+
+ File "/home/user/app/main.py", line 79, in execute
+
+      ## sde_solvers统一时间调度
+
+ File "/usr/lib/python3.11/types.py", line 171, in setup
+
+      sigmas, std_dev_t = sde_scheduler.get_sde_sigma_infos(flip_flag=True)
+
+ File "/home/user/app/config.py", line 65, in setup
+
+      sigmas = sigmas[..., :tps_train]
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 21, in setup
+
+        z = sample[:, :ego_traj_len].reshape(b, ego_traj_len//2, 2)
+
+ File "/home/user/app/config.py", line 184, in __init__
+
+        obj_z = sample[:, ego_traj_len:].reshape(b, self.obj_num, self.traj_len, 2)
+
+ File "/usr/lib/python3.11/types.py", line 211, in setup
+
+        t = sigmas[..., i].unsqueeze(-1).reshape(b, -1)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 184, in execute
+
+                          ego_condition=ego_condition,
+
+ File "/home/user/app/main.py", line 110, in execute
+
+                          object_flow=obj_z,
+
+ File "/home/user/app/main.py", line 40, in execute
+
+                          object_condition=object_feat,
+
+ File "/home/user/app/main.py", line 287, in execute
+
+                          final_condition=final_condition,
+
+ File "/home/user/app/main.py", line 29, in execute
+
+                          all_traj_flow_mask=gt_traj_mask,
+
+ File "/home/user/app/main.py", line 31, in execute
+
+                          ego_feat_with_mm=ego_feat_with_mm,
+
+ File "/home/user/app/main.py", line 203, in execute
+
+                          obj_feat_with_mm=obj_feat_with_mm,
+
+ File "/home/user/app/main.py", line 218, in execute
+
+                        )
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+ File "/home/user/app/config.py", line 208, in setup
+
+        group_b = pred_mu_flow.shape[0]
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 93, in execute
+
+                      return_ode=False
+
+ File "/home/user/app/main.py", line 79, in execute
+
+                    )
+
+ File "/home/user/app/main.py", line 222, in execute
+
+        if self.gt_guidance and i+1 < tps_train:
+
+ File "/usr/lib/python3.11/types.py", line 108, in setup
+
+          x_t = x_t.reshape(b//groups, groups, ego_traj_len + obj_traj_len)
+
+ File "/home/user/app/main.py", line 48, in execute
+
+          t_to = sigmas[0, i+1]
+
+ File "/home/user/app/config.py", line 170, in setup
+
+          noise = torch.rand_like(drift_mean[::groups][:, :ego_traj_len])
+
+ File "/home/user/app/config.py", line 287, in setup
+
+          x_t[gt_guidance_tag, 0, :ego_traj_len] = t_to * neg_gt_traj_with_path[gt_guidance_tag] + (1.0 - t_to) * noise[gt_guidance_tag]
+
+ File "/home/user/app/config.py", line 279, in setup
+
+          x_t = x_t.reshape(-1, ego_traj_len + obj_traj_len)
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+ File "/usr/lib/python3.11/types.py", line 214, in __init__
+
+        if self.rule == "policy_old":
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 270, in execute
+
+                            samples=cur_sample[:, :ego_traj_len],
+
+ File "/home/user/app/main.py", line 244, in execute
+
+                            means=drift_mean[:, :ego_traj_len],
+
+ File "/home/user/app/main.py", line 111, in execute
+
+                            noise_std=noise_std,
+
+ File "/usr/lib/python3.11/types.py", line 261, in __init__
+
+                            dt=sde_scheduler.get_dt() if self.sde_solver_type == "Euler" else None
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+ File "/home/user/app/main.py", line 299, in execute
+
+                            noise_std=noise_std,
+
+ File "/home/user/app/config.py", line 62, in __init__
+
+                            dt=sde_scheduler.get_dt() if self.sde_solver_type == "Euler" else None
+
+AttributeError: 'NoneType' object has no attribute

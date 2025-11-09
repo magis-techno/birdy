@@ -1,0 +1,333 @@
+Traceback (most recent call last):
+
+  File "/home/user/app/utils.py", line 266, in process_data
+
+                masks_dict = edict()
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 116, in __init__
+
+                if self.rule == "policy_old":
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 34, in execute
+
+                    ## Package Conditions for memory 
+
+  File "/usr/lib/python3.11/functools.py", line 288, in process_data
+
+                    conditions_for_memory=edict()  
+
+TypeError: missing 1 required positional argument
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 211, in setup
+
+                    conditions_for_memory.navinn_condition = navinn_condition_ori
+
+  File "/usr/lib/python3.11/types.py", line 57, in setup
+
+                    conditions_for_memory.navinn_condition_mask = navinn_condition_mask_ori
+
+  File "/usr/lib/python3.11/types.py", line 141, in setup
+
+                    conditions_for_memory.multi_obj_interaction_tag = multi_obj_interaction_tag
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 259, in setup
+
+                    conditions_for_memory.inter_frame = inter_frame
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 225, in setup
+
+                    conditions_for_memory.object_score = object_score.clone() # pi_old 
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 146, in execute
+
+                        trj_rewards=trj_rewards, 
+
+  File "/home/user/app/main.py", line 39, in execute
+
+                        gt_rewards=gt_rewards,
+
+  File "/home/user/app/main.py", line 161, in execute
+
+                        memory_valid_mask=memory_valid_mask
+
+  File "/home/user/app/main.py", line 148, in execute
+
+                    )
+
+  File "/usr/lib/python3.11/types.py", line 157, in __init__
+
+                    memory_capacity = self.replay_memory.cur_capacity 
+
+AttributeError: 'NoneType' object has no attribute
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 94, in setup
+
+                        conditions_dict.ego_condition = sde_sample_results_from_memory.ego_condition
+
+  File "/usr/lib/python3.11/types.py", line 75, in setup
+
+                        conditions_dict.inst_condition = sde_sample_results_from_memory.inst_condition
+
+  File "/usr/lib/python3.11/types.py", line 224, in setup
+
+                        conditions_dict.god_condition = sde_sample_results_from_memory.god_condition
+
+  File "/home/user/app/config.py", line 70, in setup
+
+                        conditions_dict.static_condition = sde_sample_results_from_memory.static_condition 
+
+  File "/usr/lib/python3.11/types.py", line 110, in setup
+
+                        conditions_dict.cognition_condition = sde_sample_results_from_memory.cognition_condition
+
+  File "/home/user/app/config.py", line 105, in setup
+
+                        conditions_dict.object_feat = sde_sample_results_from_memory.object_feat
+
+  File "/usr/lib/python3.11/types.py", line 264, in setup
+
+                        conditions_dict.object_score = sde_sample_results_from_memory.object_score
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 168, in setup
+
+                        conditions_dict.obj_gt_traj_mask = sde_sample_results_from_memory.obj_gt_traj_mask
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 200, in setup
+
+                        labels_dict.full_gt_traj = sde_sample_results_from_memory.full_gt_traj 
+
+  File "/home/user/app/config.py", line 186, in setup
+
+                        labels_dict.neg_gt_traj_with_path = sde_sample_results_from_memory.neg_gt_traj_with_path 
+
+  File "/usr/lib/python3.11/types.py", line 223, in setup
+
+                        labels_dict.gt_traj_10m_path = sde_sample_results_from_memory.gt_traj_10m_path
+
+  File "/home/user/app/config.py", line 156, in setup
+
+                        labels_dict.gt_traj = sde_sample_results_from_memory.gt_traj
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 147, in setup
+
+                        labels_dict.is_follow_car = sde_sample_results_from_memory.is_follow_car
+
+  File "/home/user/app/config.py", line 149, in setup
+
+                        labels_dict.dis_to_road_end = sde_sample_results_from_memory.dis_to_road_end
+
+  File "/usr/lib/python3.11/types.py", line 228, in setup
+
+                        labels_dict.obj_gt_traj_mask = sde_sample_results_from_memory.obj_gt_traj_mask_ori
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 66, in setup
+
+                        conditions_dict.navi_condition = sde_sample_results_from_memory.navi_condition
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 72, in setup
+
+                        conditions_dict.modality_mask = sde_sample_results_from_memory.modality_mask
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 203, in setup
+
+                        labels_dict.object_position = sde_sample_results_from_memory.object_position
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 53, in setup
+
+                        conditions_dict.inst_condition = inst_condition_ori
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 144, in setup
+
+                        labels_dict.full_gt_traj = kwargs['labels'][0]["full_gt_traj_trans"]
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 123, in setup
+
+                        conditions_dict.navi_condition = navi_condition_ori
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 188, in setup
+
+                        conditions_dict.modality_mask = modality_mask
+
+  File "/home/user/app/config.py", line 229, in setup
+
+                        conditions_dict.lateral_goal = lateral_goal
+
+  File "/usr/lib/python3.11/types.py", line 276, in setup
+
+                        conditions_dict.inter_frame = inter_frame
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 233, in __init__
+
+                        labels_dict.obj_gt_traj_mask = kwargs["labels"][0]["gt_traj_mask"][:, 1:, : self.traj_len]                                                   
+
+  File "/home/user/app/config.py", line 205, in setup
+
+                        labels_dict.object_position = kwargs['labels'][0]["object_position"]
+
+  File "/home/user/app/main.py", line 272, in execute
+
+                return dict(
+
+  File "/home/user/app/main.py", line 55, in execute
+
+                        conditions_dict = conditions_dict, 
+
+  File "/home/user/app/main.py", line 174, in execute
+
+                        read_replaymemory_flag = read_replaymemory_flag, 
+
+  File "/home/user/app/main.py", line 213, in execute
+
+                        ode_predict_traj=ode_traj,
+
+  File "/home/user/app/main.py", line 115, in execute
+
+                        ode_predict_obj_traj=ode_obj_traj,
+
+ValueError: invalid value
+
+Traceback (most recent call last):
+
+  File "/home/user/app/main.py", line 145, in execute
+
+                        gt_obj_traj = obj_gt_traj,
+
+  File "/home/user/app/main.py", line 203, in execute
+
+                        # joint_predict_object_mask = joint_predict_object_mask,
+
+  File "/usr/lib/python3.11/types.py", line 54, in __init__
+
+                        object_score = object_score if self.rule == "policy_old" else object_score_new,
+
+  File "/home/user/app/main.py", line 197, in execute
+
+                        gt_flow=gt_flow,
+
+  File "/home/user/app/main.py", line 161, in execute
+
+                        pred_traj=pred_traj,
+
+  File "/home/user/app/main.py", line 224, in execute
+
+                        init_noise=init_state,
+
+  File "/usr/lib/python3.11/types.py", line 119, in setup
+
+                        sigmas=sde_sample_results.sde_infos.sigmas,
+
+NameError: name 'config' is not defined
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 108, in setup
+
+                        sigma_maxs=sde_sample_results.sigma_maxs,
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.11/types.py", line 137, in setup
+
+                        group_trajs_each_step=sde_sample_results.denoise_trajs_each_step,
+
+NameError: name 'config' is not defined
+
+
+
+Traceback (most recent call last):
+
+  File "/home/user/app/config.py", line 213, in setup
+
+                        gt_rewards=sde_sample_results.gt_rewards,
+
+NameError: name 'config' is not defined
